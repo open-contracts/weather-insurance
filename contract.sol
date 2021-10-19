@@ -1,7 +1,7 @@
 pragma solidity ^0.8.3;
 import "@openzeppelin/contracts/OpenContractAlpha.sol"
 
-contract ExampleContract is OpenContractAlpha("13e9e6f91c2570d12c84b904740ed3fee4f8473cf98543d13a0c689580c022de") {
+contract ExampleContract is OpenContractAlpha("e6295f30c2eb24805ed2a1568935a2db73e0d33e26b2a12a84fbad908251b458") {
     
     string stringStorage;
     
