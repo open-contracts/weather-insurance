@@ -7,4 +7,6 @@ cp ../oracle.py oracle_bundle/
 cp domain_whitelist.txt oracle_bundle/
 zip -r oracle_bundle.zip oracle_bundle/
 rm -rf ./oracle_bundle
-echo "Oracle Hash:" $(sha256sum oracle_bundle.zip | awk '{print $1}')
+echo $(sha256sum oracle_bundle.zip | awk '{print $1}') > oracle_hash.txt
+echo "Oracle hash:"
+cat oracle_hash.txt
