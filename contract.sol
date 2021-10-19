@@ -3,10 +3,15 @@ import "@openzeppelin/contracts/OpenContractAlpha.sol"
 
 contract ExampleContract is OpenContractAlpha("e6295f30c2eb24805ed2a1568935a2db73e0d33e26b2a12a84fbad908251b458") {
     
-    string stringStorage;
+    string enclaveStorage;
+    string userStorage;
     
-    function saveFromEnclaveOnly (bytes32 oracleHash, string memory someString) public {
+    function saveFromEnclave (bytes32 oracleHash, string memory someString) public {
         requireOracle(oracleHash);
-        stringStorage = someString;
+        enclaveStorage = someString;
+    }
+
+    function saveFromUser (string memory someString) public {
+        userStorage = someString;
     }
 }
