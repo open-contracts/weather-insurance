@@ -1,6 +1,6 @@
 {
   "ropsten": {
-    "name": "Fiat Swap",
+    "name": "Weather Insurance",
     "address": "0x4C6BAfE9018f3DDf457e2B010091a5Ee233FB3Dd",
     "description": "This contract allows anyone to provide a trustless rainfall insurance for anyone else on earth.",
     "abi": [
