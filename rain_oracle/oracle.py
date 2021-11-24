@@ -27,5 +27,5 @@ with opencontracts.enclave_backend() as enclave:
   precipitation = data[round((lon+180)/360*1440), round((lat+90)/180*720)]
   enclave.print(f'Validated Precipitation of {precipitation} on {yr}-{mo} at ({lat},{lon})')
   enclave.submit(int(precipitation, 1000), yr, mo, int(lat*1000), int(lon*1000),
-                 types=('uint8', 'uint8', 'uint8', 'uint8', 'uint8'), function_name='claimPayout)
+                 types=('uint8', 'uint8', 'uint8', 'uint8', 'uint8'), function_name='claimPayout')
                 
