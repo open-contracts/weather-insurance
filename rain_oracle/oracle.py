@@ -4,6 +4,7 @@ from earthdata import Auth, DataGranules, DataCollections, Accessor
 from datetime import datetime
 
 with opencontracts.enclave_backend() as enclave:
+  beneficiary = enclave.user_input('Beneficiary')
   os.environ["CMR_USERNAME"] = enclave.user_input('Username for NASA Earthdata API')
   os.environ["CMR_PASSWORD"] = enclave.user_input('Password for NASA Earthdata API')
   lat, lon = enclave.user_input('Latitude, Longitude (+-90, +-180)').split(',')
@@ -26,6 +27,6 @@ with opencontracts.enclave_backend() as enclave:
   data[data<0] = float('nan')
   precipitation = data[round((lon+180)/360*1440), round((lat+90)/180*720)]
   enclave.print(f'Validated Precipitation of {precipitation} on {yr}-{mo} at ({lat},{lon})')
-  enclave.submit(int(precipitation, 1000), yr, mo, int(lat*1000), int(lon*1000),
-                 types=('uint8', 'uint8', 'uint8', 'uint8', 'uint8'), function_name='claimPayout')
+  enclave.submit(beneficiary, int(precipitation, 1000), yr, mo, int(lat*1000), int(lon*1000),
+                 types=('address', 'uint8', 'uint8', 'uint8', 'uint8', 'uint8'), function_name='claim')
                 
