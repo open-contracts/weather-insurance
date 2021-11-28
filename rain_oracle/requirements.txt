@@ -1,4 +1,4 @@
-# estimated seconds to install: 30
+# estimated seconds to install: 60
 setuptools
 earthdata
 h5py
