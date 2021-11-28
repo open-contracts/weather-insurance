@@ -13,7 +13,7 @@ with opencontracts.enclave_backend() as enclave:
   yr, mo = enclave.user_input('Year-Month (YYYY-MM)').split('-')
   yr, mo = int(yr), int(mo) 
   
-  enclave.open_up_domain('earthdata.nasa.gov')
+  enclave.open_up_domain('urs.earthdata.nasa.gov')
   auth = Auth()
   auth.login(strategy='environment')
   collection = DataCollections(auth).keyword('GPM_3GPROFGPMGMI').get(1)[0]['meta']
