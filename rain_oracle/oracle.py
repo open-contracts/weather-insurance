@@ -4,7 +4,7 @@ from earthdata import Auth, DataGranules, DataCollections, Accessor
 from datetime import datetime
 
 with opencontracts.enclave_backend() as enclave:
-  beneficiary = enclave.user_input('Beneficiary')
+  beneficiary = enclave.user_input('Address of Beneficiary:')
   os.environ["CMR_USERNAME"] = enclave.user_input('Username for NASA Earthdata API')
   os.environ["CMR_PASSWORD"] = enclave.user_input('Password for NASA Earthdata API')
   lat, lon = enclave.user_input('Latitude, Longitude (+-70, +-180)').split(',')
