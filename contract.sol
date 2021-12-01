@@ -44,7 +44,7 @@ contract WeatherInsurance is OpenContract {
 
     function settle(bytes32 oracleID, address beneficiary, bytes32 policyID, bool damageOccured)
     public checkOracle(oracleID, this.settle.selector) {
-        require(insurance[policyID][beneficiary].insured, "The insurance policy was not active.");
+        require(insurance[policyID][beneficiary].insured, "The insurance is not active.");
         uint256 payout = insurance[policyID][beneficiary].payout;
         if (damageOccured) {
             payable(beneficiary).transfer(payout);
