@@ -1,53 +1,55 @@
 pragma solidity ^0.8.0;
-
 import "https://github.com/open-contracts/protocol/blob/main/solidity_contracts/OpenContractRopsten.sol";
 
-contract WeatherInsurance is OpenContractAlpha {
-    
-    mapping(bytes32 => uint256) _payout;
-    mapping(bytes32 => uint256) _payment;
-    mapping(bytes32 => address) _provider;
-    mapping(bytes32 => uint8) _threshold;
-    mapping(bytes32 => bool) public insured;
+contract WeatherInsurance is OpenContract {
 
-    function policyID(address beneficiary, int8 lon, int8 lat, uint8 year, uint8 month) public pure returns(bytes32){
-        return keccak256(abi.encodePacked(beneficiary, lon, lat, year, month));
+    struct deal {
+        uint256 payout;
+        uint256 price;
+        address insurer;
+        bool insured;
     }
 
-    function request(int8 lon, int8 lat, uint8 year, uint8 month, uint8 threshold, uint256 payout) public payable {
-        bytes32 policyID = keccak256(abi.encodePacked(msg.sender, lon, lat, year, month));
-        _payment[policyID] = msg.value;
-        _threshold[policyID] = threshold;
-        _payout[policyID] = payout;
+    mapping(bytes32 => mapping(address => deal)) insurance;
+
+    constructor() {
+        setOracle(this.claim.selector, "any");
     }
-    
-    function retract(int8 lon, int8 lat, uint8 year, uint8 month) public {
-        bytes32 policyID = keccak256(abi.encodePacked(msg.sender, lon, lat, year, month));
-        uint256 payment = _payment[policyID];
-        _payment[policyID] = 0;
+
+    function policyID(int8 lon, int8 lat, uint8 year, uint8 month, uint8 threshold) public pure returns(bytes32) {
+        return keccak256(abi.encode(lon, lat, year, month, threshold));
+    }
+
+    function request(bytes32 policyID) public payable {
+        require(!insurance[policyID][msg.sender].insured, "Your policy is already active.");
+        insurance[policyID][msg.sender].price += msg.value;
+    }
+
+    function retract(bytes32 policyID) public {
+        require(!insurance[policyID][msg.sender].insured, "Your policy is already active.");
+        uint256 payment = insurance[policyID][msg.sender].price;
+        insurance[policyID][msg.sender].price = 0;
         payable(msg.sender).transfer(payment);
     }
-    
-    function provide(address beneficiary, int8 lon, int8 lat, uint8 year, uint8 month) public payable {
-        bytes32 policyID = keccak256(abi.encodePacked(beneficiary, lon, lat, year, month));
-        require(msg.value >= _payout[policyID], "You did not provide enough funds to provide the insurance.");
-        insured[policyID] = true;
-        uint256 payment = _payment[policyID];
-        _payment[policyID] = 0;
+
+    function provide(address beneficiary, bytes32 policyID) public payable {
+        require(!insurance[policyID][beneficiary].insured, "The policy is already active.");
+        require(msg.value >= insurance[policyID][beneficiary].payout, "You did send enough ETH to provide the insurance.");
+        insurance[policyID][beneficiary].insured = true;
+        insurance[policyID][beneficiary].insurer = msg.sender;
+        uint256 payment = insurance[policyID][beneficiary].price;
+        insurance[policyID][beneficiary].price = 0;
         payable(msg.sender).transfer(payment);
-        _provider[policyID] = msg.sender;
     }
-    
-    function claim(bytes32 oracleHash, address msgSender, address beneficiary, uint8 rainfall, int8 lon, int8 lat, uint8 year, uint8 month)
-    public _oracle(oracleHash, msgSender, this.claim.selector) {
-        bytes32 policyID = keccak256(abi.encodePacked(beneficiary, lon, lat, year, month));
-        require(insured[policyID], "This insurance was not provided.");
-        uint256 payout = _payout[policyID];
-        _payout[policyID] = 0;
-        if (rainfall < _threshold[policyID]) {
+
+    function claim(bytes32 oracleID, address beneficiary, bytes32 policyID, bool damageOccured)
+    public checkOracle(oracleID, this.claim.selector) {
+        require(!insurance[policyID][beneficiary].insured, "The insurance policy was not active.");
+        uint256 payout = insurance[policyID][beneficiary].payout;
+        if (damageOccured) {
             payable(beneficiary).transfer(payout);
         } else {
-            payable(_provider[policyID]).transfer(payout);
+            payable(insurance[policyID][beneficiary].insurer).transfer(payout);
         }
     }
 }
