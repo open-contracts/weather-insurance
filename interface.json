@@ -1,254 +1,126 @@
 {
   "ropsten": {
     "name": "Weather Insurance",
-    "address": "0x4C6BAfE9018f3DDf457e2B010091a5Ee233FB3Dd",
+    "address": "0x67698Eac437DA1aDfE1165EA5eEF83da20d74160",
     "description": "This contract allows anyone to provide a trustless rainfall insurance for anyone else on earth.",
     "abi": [
-	{
-		"inputs": [
-			{
-				"internalType": "bytes4",
-				"name": "",
-				"type": "bytes4"
-			}
-		],
-		"name": "_allowedHash",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "_complete_oracles",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "_completed",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "oracleHash",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "address",
-				"name": "msgSender",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "beneficiary",
-				"type": "address"
-			},
-			{
-				"internalType": "uint8",
-				"name": "rainfall",
-				"type": "uint8"
-			},
-			{
-				"internalType": "int8",
-				"name": "lon",
-				"type": "int8"
-			},
-			{
-				"internalType": "int8",
-				"name": "lat",
-				"type": "int8"
-			},
-			{
-				"internalType": "uint8",
-				"name": "year",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint8",
-				"name": "month",
-				"type": "uint8"
-			}
-		],
-		"name": "claim",
-		"outputs": [],
-		"oracleFolder": "rain_oracle",
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"name": "insured",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "beneficiary",
-				"type": "address"
-			},
-			{
-				"internalType": "int8",
-				"name": "lon",
-				"type": "int8"
-			},
-			{
-				"internalType": "int8",
-				"name": "lat",
-				"type": "int8"
-			},
-			{
-				"internalType": "uint8",
-				"name": "year",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint8",
-				"name": "month",
-				"type": "uint8"
-			}
-		],
-		"name": "policyNo",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "beneficiary",
-				"type": "address"
-			},
-			{
-				"internalType": "int8",
-				"name": "lon",
-				"type": "int8"
-			},
-			{
-				"internalType": "int8",
-				"name": "lat",
-				"type": "int8"
-			},
-			{
-				"internalType": "uint8",
-				"name": "year",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint8",
-				"name": "month",
-				"type": "uint8"
-			}
-		],
-		"name": "provide",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "int8",
-				"name": "lon",
-				"type": "int8"
-			},
-			{
-				"internalType": "int8",
-				"name": "lat",
-				"type": "int8"
-			},
-			{
-				"internalType": "uint8",
-				"name": "year",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint8",
-				"name": "month",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint8",
-				"name": "threshold",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint256",
-				"name": "payout",
-				"type": "uint256"
-			}
-		],
-		"name": "request",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "int8",
-				"name": "lon",
-				"type": "int8"
-			},
-			{
-				"internalType": "int8",
-				"name": "lat",
-				"type": "int8"
-			},
-			{
-				"internalType": "uint8",
-				"name": "year",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint8",
-				"name": "month",
-				"type": "uint8"
-			}
-		],
-		"name": "retract",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	}
-     ]
+      {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "int8",
+            "name": "latitude",
+            "type": "int8"
+          },
+          {
+            "internalType": "int8",
+            "name": "longitude",
+            "type": "int8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "year",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "month",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "threshold",
+            "type": "uint8"
+          }
+        ],
+        "name": "policyID",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "beneficiary",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "policyID",
+            "type": "bytes32"
+          }
+        ],
+        "name": "provide",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "policyID",
+            "type": "bytes32"
+          }
+        ],
+        "name": "request",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "policyID",
+            "type": "bytes32"
+          }
+        ],
+        "name": "retract",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "oracleID",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "address",
+            "name": "beneficiary",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "policyID",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bool",
+            "name": "damageOccured",
+            "type": "bool"
+          }
+        ],
+        "name": "settle",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+	"oracleFolder": 'rain_oracle'
+      }
+    ]
   }
 }
