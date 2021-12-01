@@ -1,3 +1,4 @@
+
 import opencontracts
 import os, h5py
 from earthdata import Auth, DataGranules, DataCollections, Accessor
@@ -30,8 +31,7 @@ with opencontracts.enclave_backend() as enclave:
   
   damage_occured = precipitation < threshold
   msg = f'Validated Precipitation of {precipitation} on {yr}-{mo} at ({lat},{lon}),'
-  msg += f'which means the damage did{' not'*(not damageOccured)} occur.'
+  msg += f'which means the damage did{" not"*(not damageOccured)} occur.'
   enclave.print(msg)
   beneficiary = enclave.user_input('Address of Beneficiary:')
   enclave.submit(beneficiary, policyID, damage_occured, types=('address', 'bytes32', 'bool'), function_name='settle')
-                
