@@ -30,7 +30,7 @@ with opencontracts.enclave_backend() as enclave:
   precipitation = data[round((lon+180)/360*1440), round((lat+70)/140*720)]
   
   damage_occured = precipitation < threshold
-  msg = f'Validated Precipitation of {precipitation} on {yr}-{mo} at ({lat},{lon}),'
+  msg = f'Validated Precipitation of {precipitation} on {yr}-{mo} at ({lat},{lon}), '
   msg += f'which means the damage did{" not"*(not damageOccured)} occur.'
   enclave.print(msg)
   beneficiary = enclave.user_input('Address of Beneficiary:')
