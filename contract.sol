@@ -13,11 +13,11 @@ contract WeatherInsurance is OpenContract {
     mapping(bytes32 => mapping(address => deal)) insurance;
 
     constructor() {
-        setOracle(this.claim.selector, "any");
+        setOracle(this.settle.selector, "any");  // for debugging purposes, allow any oracleID
     }
 
-    function policyID(int8 lon, int8 lat, uint8 year, uint8 month, uint8 threshold) public pure returns(bytes32) {
-        return keccak256(abi.encode(lon, lat, year, month, threshold));
+    function policyID(int8 latitude, int8 longitude, uint8 year, uint8 month, uint8 threshold) public pure returns(bytes32) {
+        return keccak256(abi.encode(latitude, longitude, year, month, threshold));
     }
 
     function request(bytes32 policyID) public payable {
@@ -42,8 +42,8 @@ contract WeatherInsurance is OpenContract {
         payable(msg.sender).transfer(payment);
     }
 
-    function claim(bytes32 oracleID, address beneficiary, bytes32 policyID, bool damageOccured)
-    public checkOracle(oracleID, this.claim.selector) {
+    function settle(bytes32 oracleID, address beneficiary, bytes32 policyID, bool damageOccured)
+    public checkOracle(oracleID, this.settle.selector) {
         require(!insurance[policyID][beneficiary].insured, "The insurance policy was not active.");
         uint256 payout = insurance[policyID][beneficiary].payout;
         if (damageOccured) {
