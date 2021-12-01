@@ -34,7 +34,7 @@ contract WeatherInsurance is OpenContract {
 
     function provide(address beneficiary, bytes32 policyID) public payable {
         require(!insurance[policyID][beneficiary].insured, "The policy is already active.");
-        require(msg.value >= insurance[policyID][beneficiary].payout, "You did send not enough ETH to provide the insurance.");
+        require(msg.value >= insurance[policyID][beneficiary].payout, "You did not send enough ETH to provide the insurance.");
         insurance[policyID][beneficiary].insured = true;
         insurance[policyID][beneficiary].insurer = msg.sender;
         uint256 payment = insurance[policyID][beneficiary].price;
