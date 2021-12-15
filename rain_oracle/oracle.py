@@ -10,7 +10,8 @@ with opencontracts.enclave_backend() as enclave:
   yr, mo = enclave.user_input('Year-Month (YYYY-MM)').split('-')
   yr, mo = int(yr), int(mo)
   threshold = float(enclave.user_input('Threshold:'))
-  policyID = enclave.keccak(int(lat*1000), int(lon*1000), yr, mo, int(threshold*1000))
+  #policyID = enclave.keccak(int(lat*1000), int(lon*1000), yr, mo, int(threshold*1000),
+  #                          types=('uint8', 'uint8', 'uint8', 'uint8', 'uint8'))
   enclave.print(f'You are about to settle the insurance with policyID {policyID}.')
   
   os.environ["CMR_USERNAME"] = enclave.user_input('Username for NASA Earthdata API:')
