@@ -3,14 +3,14 @@ import "https://github.com/open-contracts/protocol/blob/main/solidity_contracts/
 
 contract WeatherInsurance is OpenContract {
 
-    struct deal {
+    struct parameters {
         uint256 payout;
         uint256 price;
         address insurer;
-        bool insured;
+        bool active;
     }
 
-    mapping(bytes32 => mapping(address => deal)) insurance;
+    mapping(bytes32 => mapping(address => parameters)) public policy;
 
     constructor() {
         setOracle(this.settle.selector, "any");  // for debugging purposes, allow any oracleID
@@ -20,36 +20,37 @@ contract WeatherInsurance is OpenContract {
         return keccak256(abi.encode(latitude, longitude, year, month, threshold));
     }
 
-    function request(bytes32 policyID) public payable {
-        require(!insurance[policyID][msg.sender].insured, "Your policy is already active.");
-        insurance[policyID][msg.sender].price += msg.value;
+    function request(bytes32 policyID, uint256 payout) public payable {
+        require(!policy[policyID][msg.sender].active, "Your policy is already active.");
+        policy[policyID][msg.sender].price += msg.value;
+        policy[policyID][msg.sender].payout = payout;
     }
 
     function retract(bytes32 policyID) public {
-        require(!insurance[policyID][msg.sender].insured, "Your policy is already active.");
-        uint256 payment = insurance[policyID][msg.sender].price;
-        insurance[policyID][msg.sender].price = 0;
+        require(!policy[policyID][msg.sender].active, "Your policy is already active.");
+        uint256 payment = policy[policyID][msg.sender].price;
+        policy[policyID][msg.sender].price = 0;
         payable(msg.sender).transfer(payment);
     }
 
     function provide(address beneficiary, bytes32 policyID) public payable {
-        require(!insurance[policyID][beneficiary].insured, "The policy is already active.");
-        require(msg.value >= insurance[policyID][beneficiary].payout, "You did not send enough ETH to provide the insurance.");
-        insurance[policyID][beneficiary].insured = true;
-        insurance[policyID][beneficiary].insurer = msg.sender;
-        uint256 payment = insurance[policyID][beneficiary].price;
-        insurance[policyID][beneficiary].price = 0;
+        require(!policy[policyID][beneficiary].active, "The policy is already active.");
+        require(msg.value >= policy[policyID][beneficiary].payout, "You did not send enough ETH to provide the insurance.");
+        policy[policyID][beneficiary].active = true;
+        policy[policyID][beneficiary].insurer = msg.sender;
+        uint256 payment = policy[policyID][beneficiary].price;
+        policy[policyID][beneficiary].price = 0;
         payable(msg.sender).transfer(payment);
     }
 
     function settle(bytes32 oracleID, address beneficiary, bytes32 policyID, bool damageOccured)
     public checkOracle(oracleID, this.settle.selector) {
-        require(insurance[policyID][beneficiary].insured, "The insurance is not active.");
-        uint256 payout = insurance[policyID][beneficiary].payout;
+        require(policy[policyID][beneficiary].active, "The insurance is not active.");
+        uint256 payout = policy[policyID][beneficiary].payout;
         if (damageOccured) {
             payable(beneficiary).transfer(payout);
         } else {
-            payable(insurance[policyID][beneficiary].insurer).transfer(payout);
+            payable(policy[policyID][beneficiary].insurer).transfer(payout);
         }
     }
 }
