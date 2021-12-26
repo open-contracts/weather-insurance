@@ -160,7 +160,7 @@
           }
         ],
         "name": "settle",
-        "oracleFolder": "rainfall_oracle",
+        "oracleFolder": "rain_oracle",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
