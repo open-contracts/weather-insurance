@@ -1,4 +1,0 @@
-nasa.gov
-earthdata.nasa.gov
-urs.earthdata.nasa.gov
-cmr.earthdata.nasa.gov
