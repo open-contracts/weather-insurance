@@ -9,8 +9,8 @@ with opencontracts.enclave_backend() as enclave:
   lat, lon = float(lat), float(lon)
   yr, mo = enclave.user_input('Year-Month (YY-MM)').split('-')
   yr, mo = 2000 + int(yr), int(mo)
-  threshold = float(enclave.user_input('Threshold:'))
-  policyID = enclave.keccak(int(lat*1000), int(lon*1000), yr, mo, int(threshold*1000),
+  threshold = int(enclave.user_input('Threshold:'))
+  policyID = enclave.keccak(int(lat*1000), int(lon*1000), yr, mo, threshold,
                             types=('int256', 'int256', 'uint16', 'uint8', 'uint256'))
   enclave.print(f'You are about to settle the insurance with policyID {policyID}.')
   
@@ -30,7 +30,7 @@ with opencontracts.enclave_backend() as enclave:
   data[data<0] = float('nan')
   precipitation = data[round((lon+180)/360*1440), round((lat+70)/140*720)]
   
-  damage_occured = precipitation < threshold
+  damage_occured = precipitation < threshold / 1000
   msg = f'Validated Precipitation of {precipitation} on {yr}-{mo} at ({lat},{lon}), '
   msg += f'which means the damage did{" not"*(not damage_occured)} occur.'
   enclave.print(msg)
