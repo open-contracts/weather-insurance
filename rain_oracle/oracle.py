@@ -6,11 +6,11 @@ from datetime import datetime
 
 with opencontracts.enclave_backend() as enclave:
   lat, lon = enclave.user_input('Latitude, Longitude (+-70, +-180):').split(',')
-  lat, lon = float(lat), float(lon)
+  lat, lon = int(lat), int(lon)
   yr, mo = enclave.user_input('Year-Month (YY-MM)').split('-')
   yr, mo = 2000 + int(yr), int(mo)
   threshold = int(enclave.user_input('Threshold:'))
-  policyID = enclave.keccak(int(lat*1000), int(lon*1000), yr, mo, threshold,
+  policyID = enclave.keccak(lat, lon, yr, mo, threshold,
                             types=('int256', 'int256', 'uint16', 'uint8', 'uint256'))
   enclave.print(f'You are about to settle the insurance with policyID {policyID}.')
   
