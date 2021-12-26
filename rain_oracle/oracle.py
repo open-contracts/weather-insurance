@@ -7,8 +7,8 @@ from datetime import datetime
 with opencontracts.enclave_backend() as enclave:
   lat, lon = enclave.user_input('Latitude, Longitude (+-70, +-180):').split(',')
   lat, lon = float(lat), float(lon)
-  yr, mo = enclave.user_input('Year-Month (YYYY-MM)').split('-')
-  yr, mo = int(yr), int(mo)
+  yr, mo = enclave.user_input('Year-Month (YY-MM)').split('-')
+  yr, mo = 2000 + int(yr), int(mo)
   threshold = float(enclave.user_input('Threshold:'))
   policyID = enclave.keccak(int(lat*1000), int(lon*1000), yr, mo, int(threshold*1000),
                             types=('int256', 'int256', 'uint16', 'uint8', 'uint256'))
