@@ -8,7 +8,7 @@ with opencontracts.enclave_backend() as enclave:
   lat, lon = enclave.user_input('Latitude, Longitude (+-70, +-180):').split(',')
   lat, lon = int(lat), int(lon)
   yr, mo = enclave.user_input('Year-Month (YY-MM)').split('-')
-  yr, mo = 2000 + int(yr), int(mo)
+  yr, mo = int(yr), int(mo)
   threshold = int(enclave.user_input('Threshold:'))
   policyID = enclave.keccak(lat, lon, yr, mo, threshold,
                             types=('int256', 'int256', 'uint16', 'uint8', 'uint256'))
@@ -21,8 +21,8 @@ with opencontracts.enclave_backend() as enclave:
   auth.login(strategy='environment')
   collection = DataCollections(auth).keyword('GPM_3GPROFGPMGMI').get(1)[0]['meta']
   granules = DataGranules(auth).concept_id(collection['concept-id'])
-  granules = granules.temporal(date_from=datetime(yr, mo, 1).isoformat(),
-                               date_to=datetime(yr, mo+1, 1).isoformat()).get()
+  granules = granules.temporal(date_from=datetime(2000 + yr, mo, 1).isoformat(),
+                               date_to=datetime(2000 + yr, mo+1, 1).isoformat()).get()
   access = Accessor(auth)
   access.get(granules, './dl')
   f = h5py.File('./dl/'+os.listdir('./dl')[0],'r')
