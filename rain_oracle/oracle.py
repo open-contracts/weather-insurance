@@ -12,7 +12,7 @@ with opencontracts.enclave_backend() as enclave:
   threshold = int(enclave.user_input('Threshold:'))
   policyID = enclave.keccak(lat, lon, yr, mo, threshold,
                             types=('int256', 'int256', 'uint16', 'uint8', 'uint256'))
-  enclave.print(f'You are about to settle the insurance with policyID {'0x'+policyID.hex()}.')
+  enclave.print(f'You are about to settle the insurance with policyID {"0x"+policyID.hex()}.')
   
   os.environ["CMR_USERNAME"] = enclave.user_input('Username for NASA Earthdata API:')
   os.environ["CMR_PASSWORD"] = enclave.user_input('Password for NASA Earthdata API:')
