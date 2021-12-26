@@ -28,10 +28,10 @@ with opencontracts.enclave_backend() as enclave:
   f = h5py.File('./dl/'+os.listdir('./dl')[0],'r')
   data = f['Grid']['surfacePrecipitation'][:, :]
   data[data<0] = float('nan')
-  precipitation = data[round((lon+180)/360*1440), round((lat+70)/140*720)]
+  precipitation = data[round((lon+180)/360*1440), round((lat+70)/140*720)] * 1000
   
-  damage_occured = precipitation < threshold / 1000
-  msg = f'Validated Precipitation of {precipitation * 1000} on {yr}-{mo} at ({lat},{lon}), '
+  damage_occured = precipitation < threshold
+  msg = f'Validated Precipitation of {precipitation} on {yr}-{mo} at ({lat},{lon}), '
   msg += f'which means the damage did{" not"*(not damage_occured)} occur.'
   enclave.print(msg)
   beneficiary = enclave.user_input('Address of Beneficiary:')
