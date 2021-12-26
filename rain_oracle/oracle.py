@@ -29,6 +29,7 @@ with opencontracts.enclave_backend() as enclave:
   data = f['Grid']['surfacePrecipitation'][:, :]
   data[data<0] = float('nan')
   precipitation = data[round((lon+180)/360*1440), round((lat+70)/140*720)] * 1000
+  assert precipitation == precipitation, "Precipitation data is NaN, likely wrong coordinates."
   
   damage_occured = precipitation < threshold
   msg = f'Validated Precipitation of {precipitation} on {yr}-{mo} at ({lat},{lon}), '
