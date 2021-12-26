@@ -13,12 +13,12 @@
 		"inputs": [
 			{
 				"internalType": "bytes32",
-				"name": "",
+				"name": "policyID",
 				"type": "bytes32"
 			},
 			{
 				"internalType": "address",
-				"name": "",
+				"name": "beneficiary",
 				"type": "address"
 			}
 		],
