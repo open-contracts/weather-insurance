@@ -5,6 +5,7 @@ from earthdata import Auth, DataGranules, DataCollections, Accessor
 from datetime import datetime
 
 with opencontracts.enclave_backend() as enclave:
+  enclave.submit(True, types=('bool',), function_name='settle')
   lat, lon = enclave.user_input('Latitude, Longitude (+-70, +-180):').split(',')
   lat, lon = int(lat), int(lon)
   yr, mo = enclave.user_input('Year-Month (YY-MM)').split('-')
@@ -36,4 +37,4 @@ with opencontracts.enclave_backend() as enclave:
   msg += f'which means the damage did{" not"*(not damage_occured)} occur.'
   enclave.print(msg)
   beneficiary = enclave.user_input('Address of Beneficiary:')
-  enclave.submit(beneficiary, policyID, damage_occured, types=('address', 'bytes32', 'bool'), function_name='settle')
+  enclave.submit(beneficiary, policyID, damage_occured, types=('address', 'bytes32', 'bool',), function_name='settle')
