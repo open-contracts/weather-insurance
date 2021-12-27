@@ -5,7 +5,6 @@ from earthdata import Auth, DataGranules, DataCollections, Accessor
 from datetime import datetime
 
 with opencontracts.enclave_backend() as enclave:
-  enclave.submit(True, types=('bool',), function_name='settle')
   lat, lon = enclave.user_input('Latitude, Longitude (+-70, +-180):').split(',')
   lat, lon = int(lat), int(lon)
   yr, mo = enclave.user_input('Year-Month (YY-MM)').split('-')
