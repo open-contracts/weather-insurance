@@ -37,4 +37,4 @@ with opencontracts.enclave_backend() as enclave:
   msg += f'which means the damage did{" not"*(not damage_occured)} occur.'
   enclave.print(msg)
   beneficiary = enclave.user_input('Address of Beneficiary:')
-  enclave.submit(beneficiary, policyID, damage_occured, types=('address', 'bytes32', 'bool',), function_name='settle')
+  enclave.submit(beneficiary, policyID, int(damage_occured), types=('address', 'bytes32', 'bool',), function_name='settle')
