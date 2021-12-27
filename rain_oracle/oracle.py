@@ -17,7 +17,7 @@ with opencontracts.enclave_backend() as enclave:
   
   os.environ["CMR_USERNAME"] = enclave.user_input('Username for NASA Earthdata API:')
   os.environ["CMR_PASSWORD"] = enclave.user_input('Password for NASA Earthdata API:')
-  enclave.expect_delay(70, 'Downloading NASA data...')
+  enclave.expect_delay(80, 'Downloading NASA data...')
   auth = Auth()
   auth.login(strategy='environment')
   collection = DataCollections(auth).keyword('GPM_3GPROFGPMGMI').get(1)[0]['meta']
