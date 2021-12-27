@@ -28,7 +28,7 @@ with opencontracts.enclave_backend() as enclave:
   f = h5py.File('./dl/'+os.listdir('./dl')[0],'r')
   data = f['Grid']['surfacePrecipitation'][:, :]
   data[data<0] = float('nan')
-  precipitation = data[round((lon+180)/360*1440), round((lat+70)/140*720)] * 1000
+  precipitation = data[round((lon+180)/360*1440), round((lat+70)/140*720)].item() * 1000 
   assert precipitation == precipitation, "Precipitation data is NaN, likely wrong coordinates."
   
   damage_occured = precipitation < threshold
@@ -36,4 +36,4 @@ with opencontracts.enclave_backend() as enclave:
   msg += f'which means the damage did{" not"*(not damage_occured)} occur.'
   enclave.print(msg)
   beneficiary = enclave.user_input('Address of Beneficiary:')
-  enclave.submit(beneficiary, policyID, bool(damage_occured), types=('address', 'bytes32', 'bool',), function_name='settle')
+  enclave.submit(beneficiary, policyID, damage_occured, types=('address', 'bytes32', 'bool',), function_name='settle')
