@@ -17,7 +17,7 @@ with opencontracts.enclave_backend() as enclave:
   os.environ["CMR_PASSWORD"] = enclave.user_input('Password for NASA Earthdata API:')
   enclave.expect_delay(80, 'Downloading NASA data...')
   auth = Auth()
-  auth.login(strategy='environment')
+  assert auth.login(strategy='environment'), "Invalid Credentials"
   # https://cmr.earthdata.nasa.gov/search/concepts/C1383813816-GES_DISC.html
   granules = DataGranules(auth).short_name(
       "GPM_3GPROFGPMGMI"
