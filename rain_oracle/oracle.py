@@ -18,16 +18,18 @@ with opencontracts.enclave_backend() as enclave:
   enclave.expect_delay(80, 'Downloading NASA data...')
   auth = Auth()
   auth.login(strategy='environment')
-  collection = DataCollections(auth).keyword('GPM_3GPROFGPMGMI').get(1)[0]['meta']
-  granules = DataGranules(auth).concept_id(collection['concept-id'])
-  granules = granules.temporal(date_from=datetime(2000+yr, mo, 1).isoformat(),
-                               date_to=datetime(2000+yr, mo+1, 1).isoformat()).get()
-  access = Accessor(auth)
-  access.get(granules, './dl')
+  # https://cmr.earthdata.nasa.gov/search/concepts/C1383813816-GES_DISC.html
+  granules = DataGranules(auth).short_name(
+      "GPM_3GPROFGPMGMI"
+    ).temporal(
+      date_from=datetime(2000+yr, mo, 1).isoformat(),
+      date_to=datetime(2000+yr, mo, 1).isoformat()
+    )
+  Accessor(auth).get(granules.get(), './dl')
   f = h5py.File('./dl/'+os.listdir('./dl')[0],'r')
   data = f['Grid']['surfacePrecipitation'][:, :]
   data[data<0] = float('nan')
-  precipitation = data[round((lon+180)/360*1440), round((lat+70)/140*720)].item() * 1000 
+  precipitation = data[round((lon+180)/360*1440), round((lat+70)/140*720)].item() * 1000
   assert precipitation == precipitation, "Precipitation data is NaN, likely wrong coordinates."
   
   damage_occured = precipitation < threshold
