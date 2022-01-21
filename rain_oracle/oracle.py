@@ -1,4 +1,3 @@
-
 import opencontracts
 import os, h5py
 from earthdata import Auth, DataGranules, DataCollections, Accessor
