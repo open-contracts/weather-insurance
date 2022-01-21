@@ -15,7 +15,7 @@ with opencontracts.enclave_backend() as enclave:
   enclave.print(f'You are about to settle the insurance with policyID {"0x"+policyID.hex()}.')
   os.environ["CMR_USERNAME"] = enclave.user_input('Username for NASA Earthdata API:')
   os.environ["CMR_PASSWORD"] = enclave.user_input('Password for NASA Earthdata API:')
-  enclave.expect_delay(80, 'Downloading NASA data...')
+  enclave.expect_delay(20, 'Downloading NASA data...')
   auth = Auth()
   assert auth.login(strategy='environment'), "Invalid Credentials"
   # https://cmr.earthdata.nasa.gov/search/concepts/C1383813816-GES_DISC.html
