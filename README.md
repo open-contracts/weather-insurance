@@ -1,6 +1,6 @@
 # Weather Insurance
 
-### How it works
+### The contract
 
 This contract allows anyone to sell a trustless draught insurance policy to anyone else on earth, based on [NASA's ongoing precipitation data feed](https://cmr.earthdata.nasa.gov/search/concepts/C1383813816-GES_DISC.html) measured by the [GPM satellite constellation](https://gpm.nasa.gov/missions/GPM/constellation) via  their [microwave radiometers](https://gpm.nasa.gov/missions/GPM/GMI). Individuals can request an insurance by specifying the conditions under which they want to receive some payout, say "if it rains less than 100L during April 2022 at coordinates XY, pay out 2 ETH", while depositing some insurace fee they would be willing to pay, say 0.5 ETH, into the contract. Any insurer can accept these conditions by depositing the 2 ETH payout amount into the contract, and immediately claim the 0.5 ETH fee. If the insured individual can generate an oracle proof that the draught eventually happened, i.e. it rained less than 100L at XY in April 2022, they can claim their 2 ETH payout. If instead the insurer can prove that it didn't happen, they can reclaim their 2 ETH deposit back.
 
