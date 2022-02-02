@@ -1,8 +1,3 @@
-
-
-
-Would love to accept PRs adding e.g. !
-
 # Weather Insurance
 
 ### Summary
@@ -13,10 +8,9 @@ The idea of using smart contracts to provide weather insurance in countries wher
 
 Here are some exciting ways anyone could improve the contract: 
 - Add support insuring other types of risks, e.g. fire via [this real-time NASA data feed](https://worldview.earthdata.nasa.gov/?v=-227.166567355547,-113.56806782384763,177.91460589598017,121.72908281176169&l=VIIRS_SNPP_Thermal_Anomalies_375m_Day,VIIRS_SNPP_Thermal_Anomalies_375m_Night,MODIS_Combined_Thermal_Anomalies_All,Reference_Labels_15m(hidden),Reference_Features_15m(hidden),Coastlines_15m,VIIRS_SNPP_CorrectedReflectance_TrueColor(hidden),MODIS_Aqua_CorrectedReflectance_TrueColor(hidden),MODIS_Terra_CorrectedReflectance_TrueColor&lg=false&sh=VIIRS_SNPP_Thermal_Anomalies_375m_Day,C1392010612-LPDAAC_ECS&t=2021-12-29-T16%3A11%3A11Z)
-- Add a decentralized mechanism to fairly price insurance policies, e.g. by incentivizing [prediction markets](https://en.wikipedia.org/wiki/Prediction_market) via dedicated token rewards, or create a incentivized machine learning compentition like [Numerai](https://numer.ai/tournament), with an on-chain leaderboard that rewards the best weather prediction performance as validated via oracle enclaves
-- Increase capital efficiency by coming up with ways to aggregate uncorrelated risks 
+- Invent a mechanism by which the contract can fairly price insurance policies, e.g. by incentivizing [prediction markets](https://en.wikipedia.org/wiki/Prediction_market) via dedicated token rewards, or create a incentivized machine learning compentition like [Numerai](https://numer.ai/tournament), with an on-chain leaderboard that rewards the publisher of the best weather-forcasting model, as validated via oracle enclaves
+- Once the contract itself can price policies, it could fund all payouts from a single pool of capital which only needs to be as large as the _expected_, rather than the _maximum possible_ total payouts. This would dramatically increase capital efficiency and thus reduce insurace fees.
 
-. Design a market which efficiently matches buyers with sellers, maybe by finding a way to create the role of liquidity providers as in [Uniswap](https://uniswap.com/) for example. Integrate with [OpenGSN](https://opengsn.org/) to allow the token-buyer to start without any ETH in their wallet, enabling a trustless fiat-crypto onramp (directly onto L2!). 
 
 ### The big picture
 There's a lot of spare capital parked on Ethereum. People decided to put it there because they have high hopes for the potential of the technology, and now they would love to put it to productive (and interest-earning) use. For now, there are only few "productive" use-cases for capital in the blockchain world: align the incentives of consensus participants via proof-of-stake, or provide liquidity that allows users to swap tokens, for example. But if we're honest, there's almost no way right now in which this capital could be put to productive use in the _real world_, i.e. to solve problems that have existed before blockchains came around. The consequence: people mostly use their capital to speculate on the prices of NTFs, ERC20s and other tokens. We think this falls fundamentally short of what blockchain capital - which is globally available and has perfect contractual security built-in - _could_ be used for: rent it out or provide insurance to individuals who are inadequately served by existing financial and legal institutions, such as small business owners in low income countries, for example.
