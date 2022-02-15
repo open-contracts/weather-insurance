@@ -1,8 +1,7 @@
 {
-  "ropsten": {
     "name": "Weather Insurance",
-    "address": "0xa86fd87a685B3367F500140e7AcD93923742B955",
-    "description": "This contract allows anyone to provide a trustless rainfall insurance for anyone else on earth.",
+    "address": {"ropsten": "0xa86fd87a685B3367F500140e7AcD93923742B955"},
+    "descriptions": {"contract": "This contract allows anyone to provide a trustless rainfall insurance for anyone else on earth."},
     "abi": [
       {
         "inputs": [],
@@ -166,5 +165,4 @@
         "type": "function"
       }
     ]
-  }
 }
