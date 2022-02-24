@@ -4,7 +4,12 @@
     "ropsten": "0x2386AE3034fFCcFCa85Aa2cCac0Fe815D87941e9"
   },
   "descriptions": {
-    "contract": "This contract allows anyone to provide a trustless rainfall insurance for anyone else on earth."
+    "contract": "This contract allows anyone to provide a trustless rainfall insurance for anyone else on earth. Every policy pays some beneficiary if it rains less than some threshold at some coordinates in some future month. The current logic is maximally conservative and thus unneccesarily capital inefficient: every potential payout must be 100% covered via an equally high deposit by the insurer.",
+    "policy": "Given a policyID and beneciciary address, this function returns the policy parameters: the payout, price, insurer, and where it's active.", 
+    "policyID": "Compute the policyID for a policy that pays out if it rains less than some threshold at some coordinates during some month.",
+    "request": "Request a policy identified by its policyID and payout amount. The transaction value corresponds to the price you would be willing to pay to the insurer. You can retract the offer if it doesn't get accepted.",
+    "provide": "Agree to provide a the policy with a given policyID to some beneficiary who requested it. Call the 'policy' function to see which price the beneficiary would pay in return. Your transaction value must exceed the payout amount.",
+    "retract": "If your insurance request wasn't accepted by an insurer yet, you can retract it and be refunded the price you offered."
   },
   "abi": [
     {
