@@ -3,18 +3,18 @@ import os, h5py
 from earthdata import Auth, DataGranules, DataCollections, Accessor
 from datetime import datetime
 
-with opencontracts.enclave_backend() as enclave:
-  lat, lon = enclave.user_input('Latitude, Longitude (+-70, +-180):').split(',')
+with opencontracts.session() as session:
+  lat, lon = session.user_input('Latitude, Longitude (+-70, +-180):').split(',')
   lat, lon = int(lat), int(lon)
-  yr, mo = enclave.user_input('Year-Month (YY-MM)').split('-')
+  yr, mo = session.user_input('Year-Month (YY-MM)').split('-')
   yr, mo = int(yr), int(mo)
-  threshold = int(enclave.user_input('Threshold:'))
-  policyID = enclave.keccak(lat, lon, yr, mo, threshold,
+  threshold = int(session.user_input('Threshold:'))
+  policyID = session.keccak(lat, lon, yr, mo, threshold,
                             types=('int8', 'int8', 'uint8', 'uint8', 'uint8'))
-  enclave.print(f'You are about to settle the insurance with policyID {"0x"+policyID.hex()}.')
-  os.environ["CMR_USERNAME"] = enclave.user_input('Username for NASA Earthdata API:')
-  os.environ["CMR_PASSWORD"] = enclave.user_input('Password for NASA Earthdata API:')
-  enclave.expect_delay(20, 'Downloading NASA data...')
+  session.print(f'You are about to settle the insurance with policyID {"0x"+policyID.hex()}.')
+  os.environ["CMR_USERNAME"] = session.user_input('Username for NASA Earthdata API:')
+  os.environ["CMR_PASSWORD"] = session.user_input('Password for NASA Earthdata API:')
+  session.expect_delay(20, 'Downloading NASA data...')
   auth = Auth()
   assert auth.login(strategy='environment'), "Invalid Credentials"
   # https://cmr.earthdata.nasa.gov/search/concepts/C1383813816-GES_DISC.html
@@ -34,6 +34,6 @@ with opencontracts.enclave_backend() as enclave:
   damage_occured = precipitation < threshold
   msg = f'Validated Precipitation of {precipitation} on {yr}-{mo} at ({lat},{lon}), '
   msg += f'which means the damage did{" not"*(not damage_occured)} occur.'
-  enclave.print(msg)
-  beneficiary = enclave.user_input('Address of Beneficiary:')
-  enclave.submit(beneficiary, policyID, damage_occured, types=('address', 'bytes32', 'bool',), function_name='settle')
+  session.print(msg)
+  beneficiary = session.user_input('Address of Beneficiary:')
+  session.submit(beneficiary, policyID, damage_occured, types=('address', 'bytes32', 'bool',), function_name='settle')
