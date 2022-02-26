@@ -12,12 +12,12 @@ with opencontracts.session() as session:
   policyID = session.keccak(lat, lon, yr, mo, threshold,
                             types=('int8', 'int8', 'uint8', 'uint8', 'uint8'))
   session.print(f'You are about to settle the insurance with policyID {"0x"+policyID.hex()}.')
+  
   os.environ["CMR_USERNAME"] = session.user_input('Username for NASA Earthdata API:')
   os.environ["CMR_PASSWORD"] = session.user_input('Password for NASA Earthdata API:')
-  session.expect_delay(20, 'Downloading NASA data...')
+  session.expect_delay(20, 'Downloading [NASA data](https://cmr.earthdata.nasa.gov/search/concepts/C1383813816-GES_DISC.html)...')
   auth = Auth()
   assert auth.login(strategy='environment'), "Invalid Credentials"
-  # https://cmr.earthdata.nasa.gov/search/concepts/C1383813816-GES_DISC.html
   granules = DataGranules(auth).short_name(
       "GPM_3GPROFGPMGMI"
     ).temporal(
@@ -26,6 +26,7 @@ with opencontracts.session() as session:
     )
   Accessor(auth).get(granules.get(), './dl')
   f = h5py.File('./dl/'+os.listdir('./dl')[0],'r')
+  
   data = f['Grid']['surfacePrecipitation'][:, :]
   data[data<0] = float('nan')
   precipitation = data[round((lon+180)/360*1440), round((lat+70)/140*720)].item() * 1000
