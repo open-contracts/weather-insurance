@@ -4,11 +4,11 @@ from earthdata import Auth, DataGranules, DataCollections, Accessor
 from datetime import datetime
 
 with opencontracts.session() as session:
-  lat, lon = session.user_input('Latitude, Longitude (+-70, +-180):').split(',')
+  lat, lon = session.user_input('Which coordinates is the policy for? (Latitude, Longitude)').split(',')
   lat, lon = int(lat), int(lon)
-  yr, mo = session.user_input('Year-Month (YY-MM)').split('-')
+  yr, mo = session.user_input('Which period is the policy for? (MM/YY)').split('/')
   yr, mo = int(yr), int(mo)
-  threshold = int(session.user_input('Threshold:'))
+  threshold = int(session.user_input('What is the rainfall threshold at which the policy pays out?'))
   policyID = session.keccak(lat, lon, yr, mo, threshold,
                             types=('int8', 'int8', 'uint8', 'uint8', 'uint8'))
   session.print(f'You are about to settle the insurance with policyID {"0x"+policyID.hex()}.')
