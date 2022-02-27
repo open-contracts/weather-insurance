@@ -33,7 +33,7 @@ with opencontracts.session() as session:
   assert precipitation == precipitation, "Precipitation data is NaN, likely wrong coordinates."
   
   damage_occured = precipitation < threshold
-  msg = f'Validated Precipitation of {precipitation} on {yr}-{mo} at ({lat},{lon}), '
+  msg = f'Validated Precipitation of {precipitation} on {mo}/{yr} at ({lat},{lon}), '
   msg += f'which means the damage did{" not"*(not damage_occured)} occur.'
   session.print(msg)
   beneficiary = session.user_input('Address of Beneficiary:')
