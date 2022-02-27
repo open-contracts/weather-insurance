@@ -13,7 +13,7 @@ contract WeatherInsurance is OpenContract {
     mapping(bytes32 => mapping(address => parameters)) public policy;
 
     constructor() {
-        setOracleHash(this.settle.selector, 0x084772360c4f8761e7d571283d445a0c51c5fa9a70e205353e73c1c32ec5b9db);
+        setOracleHash(this.settle.selector, 0x72102889e3b88d5e2e6a41a6a8b2c9e064b199220f9f4c054e952c0927db615a);
     }
 
     function policyID(int8 latitude, int8 longitude, uint8 year, uint8 month, uint8 threshold) public pure returns(bytes32) {
