@@ -10,7 +10,7 @@
     "request": "Request a policy identified by its policyID and payout amount. The transaction value corresponds to the price you would be willing to pay to the insurer. You can retract the offer if it doesn't get accepted.",
     "provide": "Agree to provide a the policy with a given policyID to some beneficiary who requested it. Call the 'policy' function to see which price the beneficiary would pay in return. Your transaction value must exceed the payout amount.",
     "retract": "If your insurance request wasn't accepted by an insurer yet, you can retract it and be refunded the price you offered.",
-    "settle": "Start an interactive session in which the enclave downloads weather data from NASA satellites."
+    "settle": "Start an interactive session in which the enclave downloads weather data from NASA satellites. Requires users to generate a free NASA earthdata account with an active [bearer token](https://urs.earthdata.nasa.gov/users/jonasmetzger/user_tokens)."
   },
   "abi": [
     {
