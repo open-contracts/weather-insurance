@@ -2,7 +2,8 @@
   "name": "Weather Insurance",
   "address": {
     "ropsten": "0x1cD167FD43D971c80B2423c6A378EAf08050D9D3",
-    "optimism": "0xA7C2A69890e9183E887Bc24c41FA6F4b448CaCE8"
+    "optimism": "0xA7C2A69890e9183E887Bc24c41FA6F4b448CaCE8",
+    "arbitrum": "0xad868E2048A73181163074944e8E12698F7BCFD1"
   },
   "descriptions": {
     "contract": "This contract allows anyone to provide a trustless rainfall insurance for anyone else on earth. Every policy pays some beneficiary if it rains less than some threshold at some coordinates in some future month. For simplicity, every potential payout must be 100% covered via an equally high deposit by the insurer. Could you think of a more capital efficient design? ;)",
